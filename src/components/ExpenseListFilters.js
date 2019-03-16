@@ -10,8 +10,8 @@ export class ExpenseListFilters extends React.Component {
     }
 
     onDatesChange = ({startDate , endDate}) => {
-        this.props(setStartDate(startDate));
-        this.props(setEndDate(endDate));
+        this.props.setStartDate(startDate);
+        this.props.setEndDate(endDate);
     }
 
 
@@ -20,13 +20,13 @@ export class ExpenseListFilters extends React.Component {
     }
 
     onTextChange = (e) =>{
-        props(setTextFilter(e.target.value));
+        this.props.setTextFilter(e.target.value);
     }
 
     onSortChange = (e) =>{
         let sValue = e.target.value; 
            sValue == 'date' ? this.props(sortByDate(sValue)) :
-            this.props(sortByAmount(sValue))
+            this.props.sortByAmount(sValue)
         }
 
     render() {
@@ -73,4 +73,4 @@ const mapDispatchToProps = (dispatch) => ({
     setEndDate : (endDate) => dispatch(setEndDate(endDate))
 });
 
-export default connect(mapStateToProps)(ExpenseListFilters);
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseListFilters);
