@@ -70,3 +70,15 @@ export const startSetExpenses = ()=>  {
     }
   
 } ;
+
+export const startRemoveExpense = (id = {}) => {
+    console.log('this 1', id)
+    return (dispatch) => {
+        return database.ref(`expenses/`).child(id.id).remove().then(()=>{
+             console.log(id, 'id')
+             console.log( 'expense removed')
+             dispatch(removeExpense(id))
+         })
+     }
+console.log('this')
+}
