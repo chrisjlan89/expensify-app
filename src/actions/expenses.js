@@ -41,12 +41,32 @@ export const removeExpense = ({ id } = {}) => ({
     type : 'REMOVE_EXPENSE',
     id
 })
+
+export const startRemoveExpense = ({id}  = {}) => {
+    console.log('this 1', id)
+    return (dispatch) => {
+        return database.ref(`expenses/${id}`).remove().then(()=>{
+             console.log(id, 'id')
+             console.log( 'expense removed')
+             dispatch(removeExpense({id}))
+         })
+     }
+console.log('this')
+}
 //EDIT_EXPENse
 export const editExpense = (id, updates) => ({
     type: 'EDIT_EXPENSE',
     id,
     updates
 })
+
+export const startEditExpense = (id, updates) => {
+    return (dispatch) => {
+        return database.ref(`expenses/${id}`).update(updates).then(() => {
+            dispatch(editExpense(id, updates));
+        })
+    }
+}
 
 //SET_EXPENSES
 export const setExpenses = (expenses) =>({
@@ -71,14 +91,4 @@ export const startSetExpenses = ()=>  {
   
 } ;
 
-export const startRemoveExpense = ({id}  = {}) => {
-    console.log('this 1', id)
-    return (dispatch) => {
-        return database.ref(`expenses/${id}`).remove().then(()=>{
-             console.log(id, 'id')
-             console.log( 'expense removed')
-             dispatch(removeExpense({id}))
-         })
-     }
-console.log('this')
-}
+
